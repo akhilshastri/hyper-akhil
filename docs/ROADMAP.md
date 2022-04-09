@@ -22,11 +22,11 @@ Both the higher-level `Client` and `Server` types have stability concerns.
 
 For the `hyper::Server`:
 
-- The `Accept` trait is complex, and too easy to get wrong. If used with TLS, a
-slow TLS handshake can affect all other new connections waiting for it to
-finish.  - The `MakeService<&IO>` is confusing. The bounds are an assault on
-the eyes.  - The `MakeService` API doesn't allow to easily annotate the HTTP
-connection with `tracing`.  - Graceful shutdown doesn't give enough control.
+- The `Accept` trait is complex, and too easy to get wrong. If used with TLS, a slow TLS handshake
+  can affect all other new connections waiting for it to finish.
+- The `MakeService<&IO>` is confusing. The bounds are an assault on the eyes.
+- The `MakeService` API doesn't allow to easily annotate the HTTP connection with `tracing`.
+- Graceful shutdown doesn't give enough control.
 
 
 It's more common for people to simply use `hyper::server::conn` at this point,
@@ -36,7 +36,7 @@ While the `hyper::Client` is much easier to use, problems still exist:
 
 - The whole `Connect` design isn't stable.
   - ALPN and proxies can provide surprising extra configuration of connections.
-  - Some `Connect` implementations may wish to view the path, in addition to    the scheme, host, and port.
+  - Some `Connect` implementations may wish to view the path, in addition to the scheme, host, and port.
   - Wants `runtime` feature
 - The Pool could be made more general or composable. At the same time, more customization is
   desired, and it's not clear
@@ -186,7 +186,7 @@ will be moved to `hyper-util`.
 
 The `Body` struct is removed. Its internal "variants" are [separated into
 distinct types](https://github.com/hyperium/hyper/issues/2345), and can start
-in either `hyper-utils` or `http-body-utils`.
+in either `hyper-util` or `http-body-util`.
 
 The exported trait `HttpBody` is renamed to `Body`.
 
